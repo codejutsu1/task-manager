@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
@@ -21,4 +23,13 @@ class Task extends Model
     protected $hidden = [
         'updated_at'
     ];
+
+    public function scopeGetAll(Builder $query)
+    {
+        return QueryBuilder::for(Task::class)
+                    ->allowedFilters(['title', 'is_done'])
+                    ->defaultSort('created_at')
+                    ->allowedSorts(['title', 'is_done', 'created_at'])
+                    ->paginate();
+    }
 }

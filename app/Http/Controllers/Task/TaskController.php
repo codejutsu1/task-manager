@@ -16,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return TaskResource::collection(Task::paginate());
+        return TaskResource::collection(Task::getAll());
     }
 
     /**
