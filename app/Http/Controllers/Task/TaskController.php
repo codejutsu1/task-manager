@@ -14,9 +14,9 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): TaskResource
+    public function index()
     {
-        return TaskResource::collection(Task::all());
+        return TaskResource::collection(Task::paginate());
     }
 
     /**
