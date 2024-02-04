@@ -5,6 +5,7 @@ namespace App\Models;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
@@ -31,5 +32,11 @@ class Task extends Model
                     ->defaultSort('created_at')
                     ->allowedSorts(['title', 'is_done', 'created_at'])
                     ->paginate();
+    }
+
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'creator_id');
     }
 }
