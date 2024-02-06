@@ -22,7 +22,7 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function user(): BelongsTo
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');   
     }
