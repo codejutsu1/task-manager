@@ -42,7 +42,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return (new ProjectResource($project))->load('tasks');
+        return (new ProjectResource($project))
+            ->load('tasks')
+            ->load('members');
     }
 
     /**
