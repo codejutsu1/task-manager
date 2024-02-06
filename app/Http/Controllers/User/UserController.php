@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -20,9 +22,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request, UserService $userService): JsonResponse
     {
-        //
+        $user = $userServce->createUser($request->validated());
+
+        return $user;
     }
 
     /**

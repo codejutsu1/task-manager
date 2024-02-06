@@ -6,6 +6,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TaskResource;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 
@@ -24,8 +25,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request): TaskResource
     {
-
-        $task = Task::create($request->validated());
+        $task = Auth::user()->tasks()->create($request->validated());
 
         return new TaskResource($task);
     }
