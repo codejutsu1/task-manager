@@ -6,6 +6,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\ProjectResource;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -17,7 +18,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = QueryBuilder::for(Project::class)
+                                ->allowedIncludes('tasks')
+                                ->paginate();
+
+        return ProjectResource::collection($projects);
     }
 
     /**
@@ -37,7 +42,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return new ProjectResource($project);
+        return (new ProjectResource($project))->load('tasks');
     }
 
     /**
